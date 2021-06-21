@@ -58,7 +58,7 @@ namespace :reserve do
     judgement_text = '選択された日付の予約は既に埋まっております。'
     loop do
       (place_start_id..place_end_id).each do |place|
-        base_url = "https://www.vaccine.mrso.jp/sdftokyo/CustomReserves/input/#{place}/806"
+        base_url = "https://www.vaccine.mrso.jp/sdftokyo/CustomReserves/input/#{place}/894"
         p base_url
         begin
           d.get base_url
@@ -68,7 +68,7 @@ namespace :reserve do
         end
         sleep(2)
         if d.find_element(:xpath, '//*[@id="input"]/div[3]//div[1]').text.include?("選択された日付の予約は既に埋まっております。")
-          continue
+          next
         end
 
         d.find_element(:xpath, '//*[@id="inputForm"]/div[2]/div/table').text
@@ -94,7 +94,7 @@ namespace :reserve do
         d.find_element(:xpath, "//button[contains(text(), '予約する')]").click
   
 
-        if d.find_element(:xpath, '//*[@id="detail"]/div/div/div/div[1]').text != '処理を中断しました'
+        if d.find_elements(:xpath, '//*[@id="detail"]/div/div/div/div[1]').count.zero?
           options = {message: "予約成功!!"}
           line_notify.ping(options)
           break
