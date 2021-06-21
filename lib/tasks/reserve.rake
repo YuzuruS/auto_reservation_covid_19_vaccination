@@ -58,6 +58,7 @@ namespace :reserve do
     judgement_text = '選択された日付の予約は既に埋まっております。'
     loop do
       (place_start_id..place_end_id).each do |place|
+        # 6/25のURL。ほかのURLはわからん
         base_url = "https://www.vaccine.mrso.jp/sdftokyo/CustomReserves/input/#{place}/894"
         p base_url
         begin
